@@ -23,7 +23,7 @@ const sanitizeData = (htmlData) => {
         upComingMatch.each((i, element) => {
             let labelEmpty = ''
             const stars = parseInt($(element).attr('stars'))
-            const matchTime = $(element).find('.matchTime').text()
+            const matchTime = `${dateTime} ${$(element).find('.matchTime').text()}`
             const matchMeta = $(element).find('.matchMeta').text()
             const matchTeam1 = $(element).find('.team1 > .matchTeamName').text()
             const matchTeam2 = $(element).find('.team2 > .matchTeamName').text()

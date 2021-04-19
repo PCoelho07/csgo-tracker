@@ -1,5 +1,7 @@
 const { scrapData, sanitizeData } = require('./services/scraper')
 const { sendToQueue } = require('./services/queue')
+const { listCollection } = require('./services/firebase')
+
 
 const main = async () => {
     const htmlData = await scrapData()

@@ -1,6 +1,7 @@
+const amqpLib = require('amqplib')
 
 const connect = () => {
-    return require('amqplib').connect("amqp://locahost")
+    return amqpLib.connect("amqp://localhost")
         .then(conn => conn.createChannel())
 }
 
@@ -20,8 +21,19 @@ const sendToQueue = (queue, message) => {
         .then(channel => createQueue(channel, queue))
         .then(channel => channel.sendToQueue(queue, Buffer.from(JSON.stringify(message))))
         .catch(err => console.log(err))
+
+}
+
+const consumeFromQueue = (queue, onConsume) => {
+    connect()
+        .then(channel => channel.consume(queue, function(msg) {
+            onConsume(JSON.parse(msg.content.toString()))
+        }, {
+            noAck: true
+        }))
 }
 
 module.exports = {
-    sendToQueue
+    sendToQueue,
+    consumeFromQueue
 }
